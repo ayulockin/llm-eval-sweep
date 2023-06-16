@@ -1,0 +1,17 @@
+program: maths_sweeps.py
+method: random
+name: random_maths_sweeps
+# metric:
+#   goal: maximize
+#   name: epoch/val_accuracy
+parameters:
+  prompt_template_file:
+    values: [
+      "data/maths/maths_prompt_template_1.txt",
+      "data/maths/maths_prompt_template_2.txt",
+      "data/maths/maths_prompt_template_3.txt",
+    ]
+  temperature:
+    values: [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1]
+  llm_model_name:
+    values: ["gpt-4", "gpt-3.5-turbo", "text-davinci-003"]
