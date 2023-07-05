@@ -1,0 +1,25 @@
+program: qa_full_sweeps.py
+method: random
+name: random_qa_full_sweeps
+parameters:
+  embedding:
+    values: [
+      "SentenceTransformerEmbeddings",
+      "OpenAIEmbeddings",
+      "CohereEmbeddings",
+    ]
+  retriever:
+    values: [
+      "Chroma",
+      "TFIDFRetriever",
+      "FAISS",
+    ]
+  llm:
+    values: [
+      "gpt-4", "gpt-3.5-turbo", "text-davinci-003", "command", "command-light"
+    ]
+  prompt_template_file:
+    values: [
+      "data/qa/prompt_template_1.txt",
+      "data/qa/prompt_template_2.txt",
+    ]
