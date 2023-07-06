@@ -71,7 +71,8 @@ with open(f"{download_dir}/QA Eval Pair.table.json") as f:
 columns = data["columns"]
 data = data["data"]
 
-eval_df = pd.DataFrame(columns=columns, data=data).take(list(range(20)))
+eval_df = pd.DataFrame(columns=columns, data=data)
+eval_df = eval_df.sample(frac=1).reset_index(drop=True)
 
 # Build question-answer pairs for evaluation
 text_splitter = RecursiveCharacterTextSplitter(
@@ -108,10 +109,12 @@ def main(args: argparse.Namespace):
         retriever = vectorstore.as_retriever()
 
     # LLM
-    if "gpt" in args.llm or "text" in args.llm:
+    if "gpt" in args.llm:
         llm = ChatOpenAI(temperature=0, model_name=args.llm) # gpt-4, gpt-3.5-turbo, text-davinci-003
     elif "command" in args.llm:
         llm = Cohere(temperature=0, model=args.llm) # command, command-light
+    elif "text" in args.llm:
+        llm = OpenAI(temperature=0, model_name=args.llm)
 
     # Load up the prompt
     PROMPT = PromptTemplate.from_file(
